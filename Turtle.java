@@ -24,8 +24,6 @@ public class Turtle {
 			try {
 				String s = reader.readLine();
 				if (s == null) {
-					reader.close();
-					reader = new BufferedReader(new InputStreamReader(System.in));
 					continue;
 				}
 				List<Group> l = Parser.inst(s);
