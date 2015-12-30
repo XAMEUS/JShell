@@ -20,9 +20,17 @@ import javax.swing.filechooser.FileSystemView;
 import core.brain.TurtleBrain;
 import core.group.Group;
 import threading.Service;
-
+/**
+ * 
+ * @author Gourgoulhon Maxime & Jacquette Pierrick
+ *
+ */
 public class CommandCollection {
 	
+	/**
+	 * running the command : ls
+	 * @return String : is the result of ls
+	 */
 	public static String ls() {
 		File f = new File(TurtleBrain.cwd);
 		File[] l = f.listFiles();
@@ -34,10 +42,19 @@ public class CommandCollection {
 		return s;
 	}
 	
+	/**
+	 * 
+	 * @return List of Directory
+	 */
 	private static List<String> listDir() {
 		return CommandCollection.listDir(TurtleBrain.cwd);
 	}
 	
+	/**
+	 * 
+	 * @param location : where list the directory
+	 * @return List of Directory of this location 
+	 */
 	private static List<String> listDir(String location) {
 		File wd = new File(location);
 		List<String> dirs = new ArrayList<>();
@@ -47,6 +64,11 @@ public class CommandCollection {
 		return dirs;
 	}
 	
+	/**
+	 * 
+	 * @param location : where list the files
+	 * @return List of files of this location 
+	 */
 	private static List<String> listFiles(String location) {
 		File wd = new File(location);
 		List<String> dirs = new ArrayList<>();
@@ -65,6 +87,11 @@ public class CommandCollection {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param dir : the directory where we must go
+	 * @throws FileNotFoundException : if this directory is not exist
+	 */
 	private static void cdDir(String dir) throws FileNotFoundException {
 		if (listDir().contains(dir)) {
 			System.setProperty("user.dir", TurtleBrain.cwd + TurtleBrain.fileSystem.getSeparator() + dir);
@@ -72,6 +99,12 @@ public class CommandCollection {
 		} else throw new FileNotFoundException("Cannot find directory : " + TurtleBrain.cwd + TurtleBrain.fileSystem.getSeparator() + dir);
 	}
 	
+	/**
+	 * running the command : cd
+	 * @param args String : the path
+	 * @return
+	 * @throws FileNotFoundException : if this directory is not exist
+	 */
 	public static String cd(List<String> args) throws FileNotFoundException {
 		if (args.size() == 0) {
 			System.setProperty("user.dir", System.getProperty("user.home"));
@@ -89,10 +122,21 @@ public class CommandCollection {
 		return "";
 	}
 	
+	/**
+	 * running the command : pwd
+	 * @return String : the path
+	 */
 	public static String pwd() {
 		return TurtleBrain.cwd;
 	}
 	
+	/**
+	 * running the command : find
+	 * @param args : list of arguments (location, -(i)name, regex)
+	 * @return String : if find
+	 * @throws IllegalArgumentException : if there is a bad argument
+	 * @throws Exception : if there are not enough arguments
+	 */
 	public static String find(List<String> args) throws IllegalArgumentException, Exception {
 		if (args.size() < 3)
 			throw new Exception("find : pas assez d'arguments, utilisez : find <chemin> -opt <expr. reg.> avec opt = name|iname");
@@ -101,6 +145,13 @@ public class CommandCollection {
 		return find(args.get(0), args.get(1).equals("-iname"), args.get(2)).trim();
 	}
 	
+	/**
+	 * 
+	 * @param location : where
+	 * @param iname : option
+	 * @param regex  : the term sought
+	 * @return  : the line or regex is found
+	 */
 	private static String find(String location, boolean iname, String regex) {
 		StringBuilder s = new StringBuilder();
 		for (String fname : CommandCollection.listFiles(location))
@@ -111,6 +162,10 @@ public class CommandCollection {
 		return s.toString();
 	}
 	
+	/**
+	 *  running the command : ps
+	 * @return current process
+	 */
 	public static String ps() {
 		StringBuilder s = new StringBuilder();
 		for (Group g : Service.getProcesses())
@@ -118,18 +173,37 @@ public class CommandCollection {
 		return s.toString().trim();
 	}
 	
+	/**
+	 * running the command : sleep
+	 * @param args : a time
+	 * @return 
+	 * @throws Exception : if there are not enough arguments
+	 */
 	public static String sleep(List<String> args) throws Exception {
 		if (args.size() == 0) throw new Exception("sleep : pas assez d'arguements, il manque le temps");
 		Thread.sleep(Long.valueOf(args.get(0)));
 		return "";
 	}
 	
+	/**
+	 * running the command : kill
+	 * @param args : the pid
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws Exception : if there are not enough arguments
+	 */
 	public static String kill(List<String> args) throws IllegalArgumentException, Exception {
 		if (args.size() == 0) throw new Exception("kill : pas assez d'arguments, il manque le pid");
 		Service.killProcess(Long.valueOf(args.get(0)));
 		return "";
 	}
 	
+	/**
+	 * running the command : write
+	 * @param args : list of arguments
+	 * @return
+	 * @throws Exception : the file is not write or creat
+	 */
 	public static String write(List<String> args) throws Exception {
 		if (args.size() < 3) throw new Exception("write : pas assez d'arguments...");
 		if (args.get(1).equals("-a")) {
@@ -149,6 +223,11 @@ public class CommandCollection {
 		return "";
 	}
 	
+	/**
+	 * running the command : date
+	 * @param args : format of date
+	 * @return : new Date
+	 */
 	public static String date(List<String> args) {
 		String s = "+%Y-%m-%d";
 		if (args.size() > 0)
@@ -170,6 +249,13 @@ public class CommandCollection {
 		return "";
 	}
 	
+	/**
+	 * running the command : grep
+	 * @param args : list of arguments
+	 * @return : where is the regex
+	 * @throws FileNotFoundException :  if file not exists
+	 * @throws Exception
+	 */
 	public static String grep(List<String> args) throws FileNotFoundException, Exception {
 		if (args.size() == 0)
 			throw new Exception("grep : il manque la regex");

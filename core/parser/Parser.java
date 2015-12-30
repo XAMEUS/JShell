@@ -7,11 +7,19 @@ import java.util.regex.Pattern;
 import core.brain.TurtleBrain;
 import core.command.Command;
 import core.group.Group;
-
+/**
+ * 
+ * @author Gourgoulhon Maxime & Jacquette Pierrick
+ *
+ */
 public class Parser {
 	
 	// date +%Y-%m:%d 
-	
+	/**
+	 * verifies that the user has entered a correct statement semantically
+	 * @param input : Entering the User
+	 * @return parsed input
+	 */
 	public static List<Group> inst(String input) {
 		String commandName = "([\\p{L}[0-9]]+)";
 		String arg = String.format("\\s+((\".*\")|([%s.\\p{L}-[0-9]*\\[\\]+%%:$^]+))", TurtleBrain.fileSeparator);
@@ -26,7 +34,7 @@ public class Parser {
 		String groupsList = String.format("((%s)\\s*;\\s*)*(%s)",
 				group, group);
 		
-		System.out.println(Pattern.compile(groupsList).matcher(input).matches());
+		//System.out.println(Pattern.compile(groupsList).matcher(input).matches());
 		if(!Pattern.matches(groupsList, input)) {
 			throw new RuntimeException("no command matches");
 		}
