@@ -96,7 +96,7 @@ public class CommandCollection {
 		if (listDir().contains(dir)) {
 			System.setProperty("user.dir", TurtleBrain.cwd + TurtleBrain.fileSystem.getSeparator() + dir);
 			TurtleBrain.cwd = System.getProperty("user.dir");
-		} else throw new FileNotFoundException("Cannot find directory : " + TurtleBrain.cwd + TurtleBrain.fileSystem.getSeparator() + dir);
+		} else throw new FileNotFoundException("Impossible de trouver le répertoire : " + TurtleBrain.cwd + TurtleBrain.fileSystem.getSeparator() + dir);
 	}
 	
 	/**
