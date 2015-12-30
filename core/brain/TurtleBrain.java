@@ -4,7 +4,11 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
-
+/**
+ * 
+ * @author Gourgoulhon Maxime & Jacquette Pierrick
+ *
+ */
 public class TurtleBrain {
 
 	public static boolean stop = false;

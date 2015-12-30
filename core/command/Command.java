@@ -4,37 +4,65 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.brain.TurtleBrain;
-
+/**
+ * 
+ * @author Gourgoulhon Maxime & Jacquette Pierrick
+ *
+ */
 public class Command {
 	
 	private String name;
 	private final List<String> args;
 	private Command next;
 	
+	/**
+	 * This is the constructor of command , with the name , the list of arguments is null and the following command as null
+	 * @param name : String that is the name of the command
+	 */
 	public Command(String name) {
 		this.name = name;
 		this.args = new ArrayList<>();
 		this.next = null;
 	}
 	
+	/**
+	 * This is the constructor of command , with the name , the following command is null
+	 * @param name : String that is the name of the command
+	 * @param args : which is a list of the command arguments
+	 */
 	public Command(String name, List<String> args) {
 		this.name = name;
 		this.args = args;
 		this.next = null;
 	}
 	
+	/**
+	 * allows to know the name of the command
+	 * @return String : String that is the name of the command
+	 */
 	public String getName()	{
 		return this.name;
 	}
 	
+	/**
+	 * Adding an argument to the current command
+	 * @param arg  :Adding an argument to the list of the command arguments
+	 */
 	public void addArg(String arg) {
 		this.args.add(arg);
 	}
 	
+	/**
+	 * adding a command for the current command
+	 * @param c : add the following command
+	 */
 	public void setNext(Command c) {
 		this.next = c;
 	}
 	
+	/**
+	 * displays the current command
+	 */
 	@Override
 	public String toString() {
 		String s = this.getClass().getName() + '@' + Integer.toHexString(System.identityHashCode(this));
@@ -42,6 +70,10 @@ public class Command {
 		return s;
 	}
 	
+	/**
+	 * execution of the command by checking the arguments
+	 * @throws Exception : if there is an error during the execution of the command
+	 */
 	public void exec() throws Exception {
 		if (this.next == null) {
 			try {
@@ -49,7 +81,7 @@ public class Command {
 				if (msg.length() > 0)
 					TurtleBrain.out.println(msg);
 			} catch (InterruptedException e) {
-				System.out.println("aze");
+				System.out.println("Problem execution ");
 			}
 		}
 		else {
@@ -58,6 +90,13 @@ public class Command {
 		}
 	}
 	
+	/**
+	 * execution of the command
+	 * @param cname : name of command
+	 * @param args :  argument list of command
+	 * @return : String which is the result of the command
+	 * @throws Exception : a problem when executing
+	 */
 	public static String exec(String cname, List<String> args) throws Exception {
 		switch (cname) {
 		case "exit":

@@ -6,9 +6,16 @@ import java.util.List;
 import core.brain.TurtleBrain;
 import core.group.Group;
 import core.parser.Parser;
-
+/**
+ * 
+ * @author Gourgoulhon Maxime & Jacquette Pierrick
+ *
+ */
 public class Turtle {
-	
+	/**
+	 * 
+	 *This is the "main" program
+	 */
 	public static void main(String[] args) {
 		
 		while (true) {
