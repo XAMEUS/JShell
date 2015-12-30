@@ -24,6 +24,7 @@ public class Turtle {
 			try {
 				String s = reader.readLine();
 				if (s == null) {
+					System.out.println("");
 					continue;
 				}
 				List<Group> l = Parser.inst(s);
