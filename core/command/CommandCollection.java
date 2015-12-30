@@ -111,7 +111,10 @@ public class CommandCollection {
 			TurtleBrain.cwd = System.getProperty("user.dir");
 		}
 		else {
-			String[] l = args.get(0).split(TurtleBrain.fileSeparator);
+			String arg = args.get(0);
+			for (int i = 1; i < args.size(); i++)
+				arg += " " + args.get(i);
+			String[] l = arg.split(TurtleBrain.fileSeparator);
 			for (String dir : l) {
 				if (dir.equals(".."))
 					CommandCollection.cdParent();
